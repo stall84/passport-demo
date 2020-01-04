@@ -1,9 +1,15 @@
 <h1>{{title}}</h1>
 <p>Welcome to {{title}}</p>
 <ul>
-<li><a href="/auth/github">Github</a></li>
-<li><a href="/logout">logout</a></li>
+  <li><a href="/auth/github">Login with Github</a></li>
+  {{#if user }}
+  <li><a href="/logout">Log Out</a></li>
+  {{/if }}
 </ul>
-<pre>
-  {{user}}
-</pre>
+{{#if user}}
+  <img src="{{ user.photos.0.value }}" alt="" width="100px">
+  <h2>{{user.displayName}}</h2>
+  <h3>{{user.username}}</h3>
+  <h4>Raw Profile Object</h4>
+  <pre>{{json user}}</pre>
+{{/if }}

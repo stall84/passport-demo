@@ -24,9 +24,9 @@ router.get('/protected', ensureAuthenticated, function(req, res) {
 router.get('/', function(req, res, next) {
   let user = '';
   if (req.isAuthenticated()) {
-    user = JSON.stringify(req.user, null, 4);
+    user = req.user;
   }
-  res.render('index', { title: 'Passport Demo', user:  user});
+  res.render('index', { title: 'Passport Demo', user: user });
 });
 
 // handle login link

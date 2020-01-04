@@ -12,7 +12,12 @@ const users = require('./routes/users');
 const app = express();
 
 // view engine setup
-app.engine('hbs', hbs({ extname: 'hbs' }));
+app.engine('hbs', hbs({
+  extname: 'hbs',
+  helpers: {
+    json: (context) => JSON.stringify(context, null, 4)
+  }
+}));
 app.set('view engine', 'hbs');
 
 // import settings from .env file or ENV variables
@@ -26,8 +31,7 @@ const GithubStrategy = require('passport-github').Strategy;
 passport.use(new GithubStrategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: `${process.env.APP_URL}/auth/github/callback`,
-    error
+    callbackURL: `${process.env.APP_URL}/auth/github/callback`
   },  
   function(accessToken, refreshToken, profile, done) {
     // this function should take the profile and transform it into a user object.
